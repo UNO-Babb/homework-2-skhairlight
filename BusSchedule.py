@@ -76,14 +76,23 @@ def findNextBusTimes(text):
     except:
       pass
 
-  if len
+  if len(next_buses) > 0:
+    print(f"The next bus will arrive in {next_buses[0]} minutes.")
+    if len(next_buses) > 1:
+      print(f"The following bus will arrive in {next_buses[1]} minutes.")
+  else:
+    print("No more buses scheduled today.")
     
 
 
 def main():
-  url = "https://myride.ometro.com/Schedule?stopCode=2269&routeNumber=11&directionName=EAST"
+  stopNumber = "2269"
+  routeNumber = "11"
+  direction = "EAST"
+  
+  url = "https://myride.ometro.com/Schedule?stopCode={stopNumber}&routeNumber={routeNumber}&directionName={direction}"
   #c1 = loadURL(url) #loads the web page
   c1 = loadTestPage() #loads the test page
-  print(c1)
+  findNextBusTimes(c1)
 
 main()
