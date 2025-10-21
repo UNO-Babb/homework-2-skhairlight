@@ -1,7 +1,7 @@
 #BusSchedule.py
-#Name:
-#Date:
-#Assignment:
+#Name: Salsabiel Khair Allah
+#Date: Oct.21
+#Assignment: Homework 2
 
 import datetime
 from selenium import webdriver
@@ -37,6 +37,47 @@ def loadTestPage():
   page.close()
 
   return contents
+
+def getHours(time_str):
+  """Extracts the hour from 'HH:MM AM/PM' and converts to 24-hour format."""
+  t = datetime.datetime.strptime(time_str, "%I:%M %p")
+  return t.hour
+
+def getMinutes(time_str):
+  """Extracts the minutes from 'HH:MM AM/PM'."""
+  t = datetime.datetime.strptime(time_srt, "%I:%M %p")
+  retrun t.minute
+
+def isLater(time1, time2):
+  """Returns True if time1 is later than time2, otherwise False."""
+  return time1 > time2
+
+def findNextBusTimes(text):
+  """ Given the page text, this finds all bus times, compares them to current, and displays the next arrivals."""
+  lines = text.splitlines()
+  times = []
+
+  for line in lines:
+    if "AM" in line or "PM" in line:
+      line = line.strip()
+      if len(line) >= 7 and ":" in line:
+        times.append(line)
+
+  current_time = datetime.datetime.utcnow() - datetime.timedelta(hours=5)
+  print("Current Time:", current_time.strftime("%I:%M %p"))
+
+  next_buses = []
+  for t in times:
+    try:
+      bus_time = datetime.datetime.strptime(t, "%I:%M %p).replace(year=current_time.year, month=current_time.month, day=current_time.day)
+      if isLater(bus_time, current_time):
+        diff = (bus_time, current_time):
+        next_buses.append(diff)
+    except:
+      pass
+
+  if len
+    
 
 
 def main():
